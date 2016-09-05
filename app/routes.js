@@ -56,7 +56,15 @@ module.exports = function(app) {
 	});
 
 	// application -------------------------------------------------------------
-	app.get('*', function(req, res) {
-		res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+	app.get('/random', function(req,res){
+		console.log("Made It");
+		res.render('home.ejs');
 	});
+	
+	app.get('*', function(req, res) {
+		console.log("The get request");
+		res.render('home.ejs'); // load the single view file (angular will handle the page changes on the front-end)
+	});
+
+	
 };
