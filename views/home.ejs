@@ -20,6 +20,9 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
 
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+  <script src="/javascript/MainController.js"></script>
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -27,16 +30,16 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition skin-purple sidebar-mini">
+<body class="hold-transition skin-purple sidebar-mini" ng-app="CaseCoveApp" ng-controller="mainController" ng-init="init()">
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
     <a href="../../index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <span class="logo-mini"><b>C</b>C</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>Case</b>Cove</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -301,42 +304,37 @@
       
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-        <li class="header">MAIN NAVIGATION</li>
+        
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            <span class="pull-right-container">
+            <i class="fa fa-files-o"></i> <span>Cases</span>
+            <!-- <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
-            </span>
+            </span -->
           </a>
-          <ul class="treeview-menu">
+          <!-- <ul class="treeview-menu">
             <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
             <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-          </ul>
+          </ul> -->
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-files-o"></i>
-            <span>Layout Options</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
+            <i class="fa fa-upload"></i>
+            <span>Add Case</span>
+            
           </a>
-          <ul class="treeview-menu">
-            <li><a href="../layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-            <li><a href="../layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-            <li><a href="../layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-            <li><a href="../layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
-          </ul>
+          
         </li>
-        <li>
-          <a href="../widgets.html">
-            <i class="fa fa-th"></i> <span>Widgets</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-green">new</small>
-            </span>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-legal"></i>
+            <span>Add Round</span>
+            
           </a>
+          
         </li>
+        
+        
         
       </ul>
     </section>
@@ -372,24 +370,24 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Rendering engine</th>
-                  <th>Browser</th>
-                  <th>Platform(s)</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Wins/Losses</th>
+                  <th>Public/Private</th>
+                  <th>View Case</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                </tr>
-                <tr>
+                <tbody ng-repeat='case in cases'>
+                
+                  <tr>
+                    <td>{{case.name}} </td>
+    
+                    <td>{{case.category}}</td>
+                    <td>{{case.wins}}/{{case.losses}}</td>
+                    <td><span ng-show='case.open'>Public</span><span ng-show='!case.open'>Private</span></td>
+                    <td><button type="button" class="btn btn-primary"> Go </button></td>
+                  <tr>
+                <!-- <tr>
                   <td>Trident</td>
                   <td>Internet
                     Explorer 5.0
@@ -436,7 +434,7 @@
                   <td>Win 98+ / OSX.2+</td>
                   <td>1.7</td>
                   <td>A</td>
-                </tr>
+                </tr> -->
                 
                 </tbody>
                 
@@ -672,6 +670,7 @@
 <script src="../../dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
+
 <!-- page script -->
 <script>
   $(function () {

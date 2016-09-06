@@ -1,4 +1,7 @@
 var Todo = require('./models/todo');
+var Case = require('./models/case');
+var User = require('./models/user');
+var Round = require('./models/round');
 
 module.exports = function(app) {
 
@@ -60,10 +63,37 @@ module.exports = function(app) {
 		console.log("Made It");
 		res.render('home.ejs');
 	});
-	
-	app.get('*', function(req, res) {
+
+	app.get('/', function(req, res) {
 		console.log("The get request");
 		res.render('home.ejs'); // load the single view file (angular will handle the page changes on the front-end)
+	});
+
+	app.get('/getCases', function(req, res){
+		console.log("called getCases");
+		Case.find(function(error, results){
+			res.json({results: results});
+		})
+	})
+
+	app.post('/addCase', function(req,res){
+		var CaseObject = {
+			'creatorID' : req.body.creatorID,
+			'name' : req.body.name,
+			'wins' : req.body.wins,
+			'losses' : req.body.losses,
+			'category' : req.body.category,
+			'description' : req.body.description,
+			'text' : req.body.text,
+			'open' : req.body.open
+		};
+
+		var newcase = new Case(CaseObject);
+		newcase.save(function(error, title){
+			console.log('Data');
+			console.log(title);
+		});
+		res.json({message: "You Did it"});
 	});
 
 	
