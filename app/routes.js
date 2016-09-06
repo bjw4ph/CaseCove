@@ -68,6 +68,9 @@ module.exports = function(app) {
 		console.log("The get request");
 		res.render('home.ejs'); // load the single view file (angular will handle the page changes on the front-end)
 	});
+	app.get('/addCase', function(req,res){
+		res.render('addCase.ejs');
+	})
 
 	app.get('/getCases', function(req, res){
 		console.log("called getCases");
@@ -95,6 +98,7 @@ module.exports = function(app) {
 		});
 		res.json({message: "You Did it"});
 	});
+
 
 	
 };
