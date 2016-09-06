@@ -10,6 +10,25 @@ var CaseApp = angular.module('CaseApp', [])
 		$scope.description;
 		$scope.text;
 		$scope.open;
+
+		$scope.init = function(caseId){
+			console.log(caseId);
+			$http.get('/caseInfo/' + caseId)
+				.success(function(data){
+					$scope.name = data.caseInfo.name;
+					$scope.category = data.caseInfo.category;
+					$scope.wins = data.caseInfo.wins;
+					$scope.losses = data.caseInfo.losses;
+					$scope.description = data.caseInfo.description;
+					$scope.text = data.caseInfo.text;
+					$scope.open = data.caseInfo.open;
+				})
+				.error(function(data){
+					console.log("error" + data);
+				})
+			
+
+		}
 		
 
 		

@@ -99,6 +99,18 @@ module.exports = function(app) {
 		res.json({message: "You Did it"});
 	});
 
+	app.get('/case/:caseId', function(req,res){
+		res.render('case.ejs', {
+				'caseId' : req.params.caseId
+		})
+	})
+
+	app.get('/caseInfo/:caseId', function(req, res){
+		Case.find({'_id': req.params.caseId}, function(error, results){
+			res.json({caseInfo: results[0]});
+		});
+	});
+
 
 	
 };

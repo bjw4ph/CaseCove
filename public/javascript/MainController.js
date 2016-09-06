@@ -19,6 +19,9 @@ var CaseCove = angular.module('CaseCoveApp', [])
 			console.log("Cases!");
 			console.log($scope.cases);
 		}
+		$scope.goToCase = function(caseId){
+			$window.location.href = '/case/' + caseId;
+		}
 
 		// $scope.mainInit = function(){
 		// 	$http.post('/queryNeighborhoods', {city: $scope.cityName})

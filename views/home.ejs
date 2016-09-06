@@ -142,7 +142,7 @@
                     <td>{{case.category}}</td>
                     <td>{{case.wins}}/{{case.losses}}</td>
                     <td><span ng-show='case.open'>Public</span><span ng-show='!case.open'>Private</span></td>
-                    <td><button type="button" class="btn btn-primary"> Go </button></td>
+                    <td><button type="button" class="btn btn-primary" ng-click="goToCase(case._id)"> Go </button></td>
                   <tr>
                 <!-- <tr>
                   <td>Trident</td>
