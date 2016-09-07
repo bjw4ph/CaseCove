@@ -7,56 +7,7 @@ module.exports = function(app) {
 
 	// api ---------------------------------------------------------------------
 	// get all todos
-	app.get('/api/todos', function(req, res) {
-
-		// use mongoose to get all todos in the database
-		Todo.find(function(err, todos) {
-
-			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
-			if (err)
-				res.send(err)
-
-			res.json(todos); // return all todos in JSON format
-		});
-	});
-
-	// create todo and send back all todos after creation
-	app.post('/api/todos', function(req, res) {
-
-		// create a todo, information comes from AJAX request from Angular
-		Todo.create({
-			text : req.body.text,
-			done : false
-		}, function(err, todo) {
-			if (err)
-				res.send(err);
-
-			// get and return all the todos after you create another
-			Todo.find(function(err, todos) {
-				if (err)
-					res.send(err)
-				res.json(todos);
-			});
-		});
-
-	});
-
-	// delete a todo
-	app.delete('/api/todos/:todo_id', function(req, res) {
-		Todo.remove({
-			_id : req.params.todo_id
-		}, function(err, todo) {
-			if (err)
-				res.send(err);
-
-			// get and return all the todos after you create another
-			Todo.find(function(err, todos) {
-				if (err)
-					res.send(err)
-				res.json(todos);
-			});
-		});
-	});
+	
 
 	// application -------------------------------------------------------------
 	app.get('/random', function(req,res){
@@ -108,6 +59,51 @@ module.exports = function(app) {
 	app.get('/caseInfo/:caseId', function(req, res){
 		Case.find({'_id': req.params.caseId}, function(error, results){
 			res.json({caseInfo: results[0]});
+		});
+	});
+
+	app.get('/caseRounds/:caseId', function(req,res){
+		Round.find({'caseId': req.params.caseId}, function(error, results){
+			res.json({rounds: results});
+		});
+	})
+
+	app.post('/addRound', function(req,res){
+		var RoundObject = {
+			'caseId' : req.body.caseId,
+			'date' : req.body.date,
+			'gov' : req.body.gov,
+			'opp' : req.body.opp,
+			'pmSpeaks' : req.body.pmSpeaks,
+			'loSpeaks' : req.body.loSpeaks,
+			'mgSpeaks' : req.body.mgSpeaks,
+			'moSpeaks' : req.body.moSpeaks,
+			'winner' : req.body.winner,
+			'reason' : req.body.reason,
+			'notes' : req.body.notes
+		}
+
+		var newRound = new Round(RoundObject);
+		console.log(newRound);
+		newRound.save(function(error, title){
+			if(error){
+				console.log("Error " + error);
+			} else {
+				console.log(title);
+			}
+		})
+		res.json({message: "Great Job"});
+	})
+
+	app.get('/addRound', function(req,res){
+		res.render('addRound.ejs',{
+			caseId: ''
+		});
+	});
+
+	app.get('/addRound/:caseId', function(req,res){
+		res.render('addRound.ejs',{
+			caseId: req.params.caseId
 		});
 	});
 

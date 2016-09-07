@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 
 module.exports = mongoose.model('Round', {
+	caseId: {type: String, required: true},
+	date: {type: String, required : false},
 	gov : {type: String, required : true },
 	opp : {type: String, required : false },
 	pmSpeaks : {type: String, required : false },

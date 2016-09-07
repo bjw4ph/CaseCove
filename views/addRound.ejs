@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
 
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-  <script src="/javascript/CaseController.js"></script>
+  <script src="/javascript/RoundController.js"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,7 +30,7 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition skin-purple sidebar-mini" ng-app="CaseApp" ng-controller="caseController">
+<body class="hold-transition skin-purple sidebar-mini" ng-app="RoundApp" ng-controller="roundController" ng-init="init('<%= caseId %>')">
 <div class="wrapper">
 
   <header class="main-header">
@@ -120,55 +120,66 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" ng-submit="submitCase()">
+            <form role="form" ng-submit="submitRound()">
               <div class="box-body">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Name</label>
-                  <input type="ext" class="form-control" id="exampleInputEmail1" ng-model="name" placeholder="Enter Name">
-                </div>
-                <div class="form-group">
-                  <label>Category</label>
-                  <select class="form-control" ng-model="category">
-                    <option>Politics</option>
-                    <option>Law</option>
-                    <option>History</option>
-                    <option>Sci Fi</option>
-                    <option>Other</option>
+                <!-- Determines if you need to specify the case -->
+                <div class="form-group" ng-show="!idProvided">
+                  <label>Case</label>
+                  <select class="form-control" ng-model="caseId">
+                    <!-- <div ng-repeat="case in cases"> -->
+                      <option ng-repeat="case in cases"> {{case._id}} </option>
+                    <!-- </div> -->
+                    
+                    
                   </select>
                 </div>
+
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Wins</label>
-                  <input type="ext" class="form-control" id="exampleInputEmail1" placeholder="Enter Wins" ng-model="wins">
+                  <label for="exampleInputEmail1">Date</label>
+                  <input type="ext" class="form-control" id="exampleInputEmail1" ng-model="date" placeholder="Enter Date of Round">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Losses</label>
-                  <input type="ext" class="form-control" id="exampleInputEmail1" placeholder="Enter Losses" ng-model="losses">
+                  <label for="exampleInputEmail1">Gov</label>
+                  <input type="ext" class="form-control" id="exampleInputEmail1" ng-model="gov" placeholder="Enter Gov Team">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Description</label>
-                  <input type="ext" class="form-control" id="exampleInputEmail1" placeholder="Enter Description" ng-model="description">
+                  <label for="exampleInputEmail1">Opp</label>
+                  <input type="ext" class="form-control" id="exampleInputEmail1" ng-model="opp" placeholder="Enter Opp Team">
+                </div>
+                
+                <div class="form-group">
+                  <label for="exampleInputEmail1">PM Speaks</label>
+                  <input type="ext" class="form-control" id="exampleInputEmail1" placeholder="Enter PM Speaks" ng-model="pmSpeaks">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">LO Speaks</label>
+                  <input type="ext" class="form-control" id="exampleInputEmail1" placeholder="Enter LO Speaks" ng-model="loSpeaks">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">MG Speaks</label>
+                  <input type="ext" class="form-control" id="exampleInputEmail1" placeholder="Enter MG Speaks" ng-model="mgSpeaks">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">MO Speaks</label>
+                  <input type="ext" class="form-control" id="exampleInputEmail1" placeholder="Enter MO Speaks" ng-model="moSpeaks">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Winner</label>
+                  <input type="ext" class="form-control" id="exampleInputEmail1" placeholder="Enter Description" ng-model="winner">
                 </div>
                 <!-- textarea -->
                 <div class="form-group">
-                  <label>Case</label>
-                  <textarea class="form-control" rows="5" placeholder="Enter ..." ng-model="text"></textarea>
+                  <label>Reason for Decision</label>
+                  <textarea class="form-control" rows="5" placeholder="Enter ..." ng-model="reason"></textarea>
+                </div>
+                <!-- textarea -->
+                <div class="form-group">
+                  <label>Notes</label>
+                  <textarea class="form-control" rows="5" placeholder="Enter ..." ng-model="notes"></textarea>
                 </div>
         
               </div>
-              <div class="form-group">
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="true" checked ng-model="open">
-                      Public
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="false" ng-model="open">
-                      Private
-                    </label>
-                  </div>
-                </div>
+            
 
               <!-- /.box-body -->
 

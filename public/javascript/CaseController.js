@@ -3,6 +3,7 @@ var CaseApp = angular.module('CaseApp', [])
 	// .controller('mainController"', ['$scope', '$http'], function($scope, $http) {
 	function caseController($scope, $http, $window) {
 		console.log("In the CaseController");
+		$scope.caseId;
 		$scope.name;
 		$scope.category;
 		$scope.wins;
@@ -10,9 +11,11 @@ var CaseApp = angular.module('CaseApp', [])
 		$scope.description;
 		$scope.text;
 		$scope.open;
+		$scope.rounds = [];
 
 		$scope.init = function(caseId){
 			console.log(caseId);
+			$scope.caseId = caseId;
 			$http.get('/caseInfo/' + caseId)
 				.success(function(data){
 					$scope.name = data.caseInfo.name;
@@ -25,9 +28,22 @@ var CaseApp = angular.module('CaseApp', [])
 				})
 				.error(function(data){
 					console.log("error" + data);
+				});
+			$http.get('/caseRounds/' + caseId)
+				.success(function(data){
+					// console.log()
+					$scope.rounds = data.rounds;
+					console.log($scope.rounds);
 				})
+				.error(function(data){
+					
+				})
+				
 			
 
+		}
+		$scope.goToAddRound = function(){
+			$window.location.href = '/addRound/' + $scope.caseId;
 		}
 		
 

@@ -83,7 +83,7 @@
           
         </li>
         <li class="treeview">
-          <a href="#">
+          <a href="/addRound">
             <i class="fa fa-legal"></i>
             <span>Add Round</span>
             
@@ -133,8 +133,44 @@
               <h4> Text </h4>
               <h4> {{text}} </h4>
             </div>
+            <h3> Rounds </h3>
+            <div class="box-body">
+              <table id="example2" class="table table-bordered table-striped" ng-hide="rounds[0] == null">
+                <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Opp</th>
+                  <th>PM</th>
+                  <th>LO</th>
+                  <th>MG</th>
+                  <th>MO</th>
+                  <th>Winner</th>
+                  <th>Look at</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- <div ng-repeat = "round in rounds"> -->
+                  <tr ng-repeat = "round in rounds">
+                    <td>{{round.date}} </td>
+    
+                    <td>{{round.opp}}</td>
+                    <td>{{round.pmSpeaks}}</td>
+                    <td>{{round.loSpeaks}}</td>
+                    <td>{{round.mgSpeaks}}</td>
+                    <td>{{round.moSpeaks}}</td>
+                    <td>{{round.winner}}</td>
+                    <td><button type="button" class="btn btn-primary"> Go </button></td>
+                  </tr>
+                <!-- </div> -->
+                
+                
+                </tbody>
+                
+              </table>
+              <div ng-show="rounds[0] == null"> No rounds for this case yet </div>
+            </div>
             <!-- form start -->
-            
+            <button type="button" class="btn btn-success" ng-click="goToAddRound()"> Add Round </button>
 
               <!-- /.box-body -->
 
@@ -179,14 +215,14 @@
 <script>
   $(function () {
     $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
-    });
+    // $('#example2').DataTable({
+    //   "paging": true,
+    //   "lengthChange": false,
+    //   "searching": false,
+    //   "ordering": true,
+    //   "info": true,
+    //   "autoWidth": false
+    // });
   });
 </script>
 </body>
