@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
 
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-  <script src="/javascript/CaseController.js"></script>
+  <script src="/javascript/RoundController.js"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,7 +30,7 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition skin-purple sidebar-mini" ng-app="CaseApp" ng-controller="caseController">
+<body class="hold-transition skin-purple sidebar-mini" ng-app="RoundApp" ng-controller="roundController" ng-init="viewInit('<%= roundId %>')">
 <div class="wrapper">
 
   <header class="main-header">
@@ -103,12 +103,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Add Case
+        Round
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-        
-        <li class="active">Add Case</li>
+        <li class="active">Round</li>
       </ol>
     </section>
 
@@ -118,66 +117,35 @@
               <h3 class="box-title">Quick Example</h3>
             </div>
             <!-- /.box-header -->
-            <!-- form start -->
-            <form role="form" ng-submit="submitCase()">
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Name</label>
-                  <input type="ext" class="form-control" id="exampleInputEmail1" ng-model="name" placeholder="Enter Name">
-                </div>
-                <div class="form-group">
-                  <label>Category</label>
-                  <select class="form-control" ng-model="category">
-                    <option>Politics</option>
-                    <option>Law</option>
-                    <option>History</option>
-                    <option>Sci Fi</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Wins</label>
-                  <input type="ext" class="form-control" id="exampleInputEmail1" placeholder="Enter Wins" ng-model="wins">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Losses</label>
-                  <input type="ext" class="form-control" id="exampleInputEmail1" placeholder="Enter Losses" ng-model="losses">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Description</label>
-                  <input type="ext" class="form-control" id="exampleInputEmail1" placeholder="Enter Description" ng-model="description">
-                </div>
-                <!-- textarea -->
-                <div class="form-group">
-                  <label>Case</label>
-                  <textarea class="form-control" rows="5" placeholder="Enter ..." ng-model="text"></textarea>
-                </div>
-        
-              </div>
-              <div class="form-group">
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="true" checked ng-model="open">
-                      Public
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="false" ng-model="open">
-                      Private
-                    </label>
-                  </div>
-                </div>
+            <div class = "box-body">
+              <h4> Date </h4>
+              <h4> {{date}} </h4>
+              <h4> Gov </h4>
+              <h4> {{gov}} </h4>
+              <h4> Opp </h4>
+              <h4> {{opp}} </h4>
+              <h4> pmSpeaks </h4>
+              <h4> {{pmSpeaks}}</h4>
+              <h4> loSpeaks </h4>
+              <h4> {{loSpeaks}}</h4>
+              <h4> mgSpeaks </h4>
+              <h4> {{mgSpeaks}}</h4>
+              <h4> moSpeaks </h4>
+              <h4> {{moSpeaks}}</h4>
+              <h4> Winner</h4>
+              <h4> {{winner}}</h4>
+              <h4> Reason </h4>
+              <h4> {{reason}} </h4>
+            </div>
+            
 
               <!-- /.box-body -->
 
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </form>
+              
     </section>
     <!-- /.content -->
   </div>
+  <!-- /.content-wrapper -->
   
 
  
@@ -208,14 +176,14 @@
 <script>
   $(function () {
     $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
-    });
+    // $('#example2').DataTable({
+    //   "paging": true,
+    //   "lengthChange": false,
+    //   "searching": false,
+    //   "ordering": true,
+    //   "info": true,
+    //   "autoWidth": false
+    // });
   });
 </script>
 </body>

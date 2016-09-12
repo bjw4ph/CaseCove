@@ -45,6 +45,9 @@ var CaseApp = angular.module('CaseApp', [])
 		$scope.goToAddRound = function(){
 			$window.location.href = '/addRound/' + $scope.caseId;
 		}
+		$scope.goToRound = function(roundId){
+			$window.location.href = '/round/' + roundId;
+		}
 		
 
 		

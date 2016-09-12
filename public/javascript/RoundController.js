@@ -34,6 +34,26 @@ var RoundApp = angular.module('RoundApp', [])
 			}
 		}
 
+		$scope.viewInit = function(roundId){
+			$http.get('/roundInfo/' + roundId)
+				.success(function(data){
+					console.log("Setting values now");
+					$scope.date = data.roundInfo[0].date;
+					$scope.gov = data.roundInfo[0].gov;
+					$scope.opp = data.roundInfo[0].opp;
+					$scope.pmSpeaks = data.roundInfo[0].pmSpeaks;
+					$scope.loSpeaks = data.roundInfo[0].loSpeaks;
+					$scope.mgSpeaks = data.roundInfo[0].mgSpeaks;
+					$scope.moSpeaks = data.roundInfo[0].moSpeaks;
+					$scope.winner = data.roundInfo[0].winner;
+					$scope.reason = data.roundInfo[0].reason;
+					$scope.notes = data.roundInfo[0].notes;
+				})
+				.error(function(results){
+
+				});
+		}
+
 		// $scope.goToCase = function(caseId){
 		// 	$window.location.href = '/case/' + caseId;
 		// }

@@ -2,17 +2,59 @@ var Todo = require('./models/todo');
 var Case = require('./models/case');
 var User = require('./models/user');
 var Round = require('./models/round');
+var passport = require('passport');
+var jwt = require('express-jwt');
+
+require('../config/passport');
+
+
 
 module.exports = function(app) {
 
-	// api ---------------------------------------------------------------------
-	// get all todos
-	
+	var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 
-	// application -------------------------------------------------------------
-	app.get('/random', function(req,res){
-		console.log("Made It");
-		res.render('home.ejs');
+	app.use(passport.initialize());
+
+	app.get('/login', function(req,res){
+		res.render('login.ejs');
+	});
+
+	app.get('/register', function(req,res){
+		res.render('register.ejs');
+	})
+	
+	app.post('/register', function(req, res, next){
+	  if(!req.body.username || !req.body.password){
+	    return res.status(400).json({message: 'Please fill out all fields'});
+	  }
+
+	  var user = new User();
+
+	  user.username = req.body.username;
+
+	  user.setPassword(req.body.password)
+
+	  user.save(function (err){
+	    if(err){ return next(err); }
+
+	    return res.json({token: user.generateJWT()})
+	  });
+	});
+
+	app.post('/login', function(req, res, next){
+	  if(!req.body.username || !req.body.password){
+	    return res.status(400).json({message: 'Please fill out all fields'});
+	  }
+
+	  passport.authenticate('local', function(err, user, info){
+	    if(err){ return next(err); }
+
+	    if(user){
+	      return res.json({token: user.generateJWT()});
+	    } else {
+	      return res.status(401).json(info);
+	    }
+	  })(req, res, next);
 	});
 
 	app.get('/', function(req, res) {
@@ -30,7 +72,7 @@ module.exports = function(app) {
 		})
 	})
 
-	app.post('/addCase', function(req,res){
+	app.post('/addCase', auth, function(req,res){
 		var CaseObject = {
 			'creatorID' : req.body.creatorID,
 			'name' : req.body.name,
@@ -68,9 +110,9 @@ module.exports = function(app) {
 		});
 	})
 
-	app.post('/addRound', function(req,res){
+	app.post('/addRound', auth, function(req,res){
 		var RoundObject = {
-			'caseId' : req.body.caseId,
+			'caseId' : req.payload._id,
 			'date' : req.body.date,
 			'gov' : req.body.gov,
 			'opp' : req.body.opp,
@@ -106,6 +148,18 @@ module.exports = function(app) {
 			caseId: req.params.caseId
 		});
 	});
+
+	app.get('/roundInfo/:roundId', function(req, res){
+		Round.find({'_id': req.params.roundId}, function(error,results){
+			res.json({roundInfo: results});
+		});
+	})
+
+	app.get('/round/:roundId', function(req,res){
+		res.render('round.ejs',{
+			roundId: req.params.roundId
+		});
+	})
 
 
 	
